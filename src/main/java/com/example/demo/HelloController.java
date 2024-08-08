@@ -1,11 +1,8 @@
 package com.example.demo;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.TestJacoco;
-
-import java.io.File;
-import java.io.IOException;
 
 @RestController
 public class HelloController {
@@ -15,10 +12,12 @@ public class HelloController {
 		return "Hello, World!";
 	}
 
-	@GetMapping("/generate_report")
-	public String generateReport() throws IOException {
-		TestJacoco generator = new TestJacoco(new File("./"));//传递工程目录
-		generator.create();
-		return "file generated";
+	@GetMapping("/param_test")
+	public String paramTest(@RequestParam(name = "param") int param) {
+		if(param > 10){
+			return "param > 10";
+		}else{
+			return "param < 10";
+		}
 	}
 }
